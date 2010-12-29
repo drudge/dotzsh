@@ -1,0 +1,21 @@
+function gitize {
+    PROJECT_NAME=$(basename "$PWD")
+
+    # make git repo
+    git init
+
+    if [ ! -e 'README.markdown' ]; then 
+        touch README.markdown
+    fi
+
+    git add .
+    git commit -m 'First commit'
+
+    # copy repo to remote server
+    scp -rp .git $SHORTNAME@$GITSERVER:~/code/$PROJECT_NAME.git
+
+    git remote add origin ssh://$SHORTNAME@$GITSERVER/home/$SHORTNAME/code/$PROJECT_NAME.git
+
+    echo " "
+    echo "Gitize completed."
+}

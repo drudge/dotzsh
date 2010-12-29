@@ -1,0 +1,9 @@
+function pastie() {
+    if [[ -f "$1" ]]; then
+    URL=$(cat $1 | curl http://pastie.caboo.se/pastes/create -H "Expect:" -F "paste[parser]=plaintext" -F "paste[body]=<-" -F "paste[authorization]=burger" -F "paste[restricted]=1" -s -L -o /dev/null -w "%{url_effective}")
+
+    echo "$1 has been pasted at $URL"
+    else
+    echo "$1 does not exist!"
+    fi
+}

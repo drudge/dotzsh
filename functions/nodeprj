@@ -1,0 +1,19 @@
+function nodeprj() {
+    if [ ! -w $PWD ]; then
+        echo "fatal error: directory is not writable"
+    fi
+    
+    if [ -e `which git` ]; then
+        echo "fatal error: git is missing. make sure it is in your PATH"
+    fi
+    
+    if [ "x$1" = "x" ]; then
+        echo "usage: $0 [project name] [initial version]"
+    fi
+    
+    git clone http://github.com/mape/node-express-boilerplate/tarball/master $1
+    
+    if [ -d $1 ]; then
+        cd $1
+    fi
+}

@@ -1,0 +1,22 @@
+alias up="sudo zsh"
+alias untar="tar xzfvv"           # for tarballs
+alias unbz2="tar xvvfj"           # for .bz2 archives
+alias twecroute="sudo route add 10.201.0.0/8 -interface ppp0"
+alias chat-ssh="ssh ircd@chat.osx86.hu"
+alias grep="grep --colour=always"
+
+if [ `uname` = "Darwin" ]; then
+  alias ls="ls -G"
+elif [ `uname -o` = "GNU/Linux" ]; then
+  alias ls="ls --color=always"
+fi
+
+if [ -x `which mvim` ]; then
+    alias vim="mvim"
+fi
+
+for i in ${MYSERVERS[@]}
+do
+ NAME=$(echo $i | awk -F . '{print $1}')
+ alias ${NAME}="ssh $SHORTNAME@$i"
+done

@@ -1,0 +1,109 @@
+function upgrade () {
+  if [ ! $1 ] ; then
+		print "local upgrade"
+		if [ `uname` = "Darwin" ]; then
+			osx_upgrade_local
+		elif [ `uname -o` = "GNU/Linux" ]; then
+			debian_upgrade_local
+		else
+			print "I don't know what can I do for this type of machine"
+		fi
+  elif [[ $1 = "help" || $1 = "--help" || $1 = "-h" ]] ; then
+		print "local usage for upgrading Mac OS X or debian systems including fink and darwin ports: upgrade and 
+clean"
+		print 'remote usage: upgrade $debian_server'
+  elif [ $1 ]; then
+		print "remote upgrade"
+		if [[ `ssh $SHORTNAME@$1 uname -o 2&>/dev/null` = "GNU/Linux" ]] ; then
+			debian_upgrade_remote $1
+		elif [[ `ssh $1 uname 2&>/dev/null` = "Darwin" ]] ; then
+			osx_upgrade_remote $1
+		else
+			print "$1 is not a debian based Linux nor a Mac OS X machine. No upgrade could be completed."
+		fi
+	fi
+}
+# osx local upgrade 
+function osx_upgrade_local () {
+	print "Performing software update..."
+	sudo softwareupdate -i -a
+	#if [ -x /usr/bin/gem ] ; then
+	#	sudo /usr/bin/gem update
+	#fi
+	if [ -x /sw/bin/fink ] ; then
+		print "Upgrading Fink..."
+		sudo fink selfupdate
+		sudo fink update-all
+		sudo fink cleanup
+	fi
+	if [ -x /opt/local/bin/port ] ; then
+		print "Upgrading MacPorts..."
+		#sudo port sync
+		sudo port -d selfupdate
+		#sudo port -uR upgrade installed
+		sudo port -ucRvpt upgrade installed
+		sudo port clean --all installed
+		if [ -x /opt/local/bin/gem ] ; then
+			sudo /opt/local/bin/gem update
+		fi
+	fi
+	if [ -d /Library/Application\ Support/TextMate/Bundles ]; then
+		pushd /Library/Application\ Support/TextMate/Bundles
+		svn up *.tmbundle
+		popd
+		osascript -e 'tell app "TextMate" to reload bundles'		
+	fi
+}
+# local debian upgrade
+function debian_upgrade_local (){
+	print "Performing software update..."
+  sudo apt-get update && sudo apt-get -u upgrade
+  print "Cleaning up..."
+  sudo apt-get clean
+}
+# remote osx upgrade
+function osx_upgrade_remote (){
+	if [ ! $1 ]; then
+		print "usage: osx_upgrade_remote $osx_server"
+		print "Perhaps you want osx_upgrade_local ?"
+	else
+	
+	print "Performing software update on $1..."
+
+		# local variables declaration
+    local OSX_UP
+    # ask before the upgrade
+		until [[ $OSX_UP == 'y' || $OSX_UP == 'n' ]]; do
+    	print -n "Are you sure you want to upgrade (y/n)? "
+    	read -q OSX_UP
+		done;
+
+		# upgrade if answer is y
+    if [[ $OSX_UP == "y" ]] ; then
+      ssh $SHORTNAME@$1 -t /usr/bin/sudo /usr/sbin/softwareupdate -i -a
+      print "Completed upgrade on $1."
+    fi
+   fi
+}
+
+# remote debian upgrade
+function debian_upgrade_remote (){
+	if [ ! $1 ]; then
+		print "usage: debian_upgrade_remote $debian_server"
+		print "Perhaps you want debian_upgrade_local ?"
+	else
+		print "Performing software update on $1..."
+    ssh $SHORTNAME@$1 -t sudo apt-get update
+		# print what should be upgraded
+    ssh $SHORTNAME@$1 -t "sudo apt-get -s upgrade"
+    # ask before the upgrade
+    local dummy
+    print -n "Are you sure you want to upgrade (y/n)? "
+    read -q dummy
+    if [[ $dummy == "y" ]] ; then
+      ssh $SHORTNAME@$1 -t "sudo apt-get -u upgrade --yes && sudo apt-get clean"
+			print "Completed upgrade on $1."
+    fi
+  fi
+}
+

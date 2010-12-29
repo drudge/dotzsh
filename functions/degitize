@@ -1,0 +1,54 @@
+function degitize {
+    PROJECT_NAME=$(basename "$PWD")
+	TMP_DIR=/tmp/$PROJECT_NAME
+	
+	if [ -d .git ]; then
+		COMMIT=$(git log --abbrev-commit | head -n 1 | awk '{print $2}')
+		ZIP_FILE=$PROJECT_NAME-$COMMIT.zip
+		COMMIT=" (commit $COMMIT)"
+	else
+		COMMIT=""
+		ZIP_FILE=$PROJECT_NAME.zip
+	fi
+
+
+	if [ -d $TMP_DIR ]; then
+		rm -Rf $TMP_DIR
+	fi
+	
+	if [ -e $ZIP_FILE ]; then
+		rm $ZIP_FILE
+	fi
+
+	echo -n "Preparing project...              "
+	cp -Rp $PWD $TMP_DIR
+	touch $TMP_DIR/$PROJECT_NAME-touched.zip
+	rm -Rf $TMP_DIR/$PROJECT_NAME*.zip &> /dev/null
+	echo "[done]"
+	
+	echo -n "Removing extraneous files...      "
+	find "$TMP_DIR" -name .DS_Store -print0 | xargs -0 rm -f
+	find "$TMP_DIR" -name .gitignore -print0 | xargs -0 rm -f 
+	find "$TMP_DIR" -name .gitattributes -print0 | xargs -0 rm -f
+	find "$TMP_DIR" -name .git -print0 | xargs -0 rm -rf
+	find "$TMP_DIR" -name .svn -print0 | xargs -0 rm -rf
+	echo "[done]"
+	
+	echo -n "Zipping up project...             "
+	
+	OLDPWD=$PWD
+	
+	pushd $TMP_DIR
+	zip -9yr $OLDPWD/$ZIP_FILE * &> /dev/null
+	popd
+	echo "[done]"
+	
+	echo -n "Cleaning up...                    "
+	rm -Rf $TMP_DIR
+	echo "[done]"
+	
+	
+	FILESIZE=$(ls -lh "$ZIP_FILE" | awk '{ print $5 }' )
+	echo " "
+	echo "$PROJECT_NAME$COMMIT has been zipped up as $ZIP_FILE (size: $FILESIZE)"
+}

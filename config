@@ -1,0 +1,35 @@
+setopt CORRECT			# command CORRECTION
+setopt MENUCOMPLETE
+setopt ALL_EXPORT
+setopt   notify globdots correct pushdtohome cdablevars autolist
+setopt   correctall autocd recexact longlistjobs
+setopt   nobeep nohup completeinword autoresume pushdsilent 
+setopt   autopushd pushdminus extendedglob rcquotes mailwarning
+setopt APPEND_HISTORY INC_APPEND_HISTORY SHARE_HISTORY
+unsetopt promptcr bgnice autoparamslash
+
+#zmodload zsh/complist
+autoload -U colors; colors
+autoload zcalc
+autoload -U zmv
+
+# Autoload zsh modules when they are referenced
+zmodload -a zsh/stat stat
+zmodload -a zsh/zpty zpty
+zmodload -a zsh/zprof zprof
+zmodload -ap zsh/mapfile mapfile
+
+# load up crap
+source $HOME/.zsh/common
+source $HOME/.zsh/vcard
+source $HOME/.zsh/aliases
+source $HOME/.zsh/completions
+source $HOME/.zsh/setup
+source $HOME/.zsh/binds
+
+# load my defined functions
+for file in $HOME/.zsh/functions/*
+do
+    source $file
+done
+

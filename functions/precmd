@@ -1,0 +1,31 @@
+precmd() {  
+    ## Git info in the prompt
+    if [ -d "$PWD/.git" ]; then
+		export BRANCH=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+		export REV=$(git describe --tags --always $1 2>/dev/null || git rev-parse --short $1 2>/dev/null)
+	else
+	    export BRANCH=""
+	    export REV=""
+	fi
+
+	if [ $HOME = $PWD ]; then
+		newPWD="~"
+	else
+		newPWD=${PWD:t}
+	fi
+	
+	ROOTSTRING=""
+	
+	if [ $USER = "root" ]; then
+		ROOTSTRING="%{$fg_bold[red]%}★ %{$reset_color%}"
+	fi
+	
+	title "" "%m: %55<...<%~"
+    export PS1="$ROOTSTRING%{$fg[white]%}%m%{$reset_color%}:%{$fg[magenta]%} $newPWD%{$reset_color%}> "
+    
+    if [ -n "$BRANCH" ]; then
+        export RPROMPT="%{$fg[white]%}(%{$reset_color%}%{$fg[green]%}$BRANCH%{$reset_color%}:%{$fg[yellow]%}$REV%{$reset_color%}%)%{$reset_color%}" 
+    else
+        export RPROMPT=""
+    fi
+}

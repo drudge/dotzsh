@@ -1,0 +1,5 @@
+source $HOME/.zsh/functions/title
+
+function preexec() {
+  title "" "%m: %35<...<%~"
+}

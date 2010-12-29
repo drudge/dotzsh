@@ -1,0 +1,26 @@
+export LC_ALL="en_US.UTF-8"             # Use British English...
+export LC_ALL="en_US.UTF-8"             # Use British English...
+export LANG="en_US.UTF-8"               # ...as default language.
+
+export EDITOR="vim"                     # Long live vim (as our editor).
+export PAGE="less"
+
+export PATH="${PATH}:/opt/local/bin"
+
+# History.
+HISTFILE=~/.histfile
+HISTSIZE=2000
+SAVEHIST=2000
+
+# Limits.
+unlimit
+limit stack 8192
+limit core 0 # No coredumps.
+limit -s
+
+# Colors.
+export COLOR_PROMPT=yes
+export force_colored_prompt=yes
+export LSCOLORS=dxfxcxdxbxegedabagacad
+
+

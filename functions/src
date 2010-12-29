@@ -1,0 +1,11 @@
+# Invoke this every time when u change .zshrc to
+# recompile it.
+src ()
+{
+    autoload -U zrecompile
+    [ -f ~/.zshrc ] && zrecompile -p ~/.zshrc
+    [ -f ~/.zcompdump ] && zrecompile -p ~/.zcompdump
+    [ -f ~/.zshrc.zwc.old ] && rm -f ~/.zshrc.zwc.old
+    [ -f ~/.zcompdump.zwc.old ] && rm -f ~/.zcompdump.zwc.old
+    source ~/.zshrc
+}

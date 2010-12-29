@@ -1,0 +1,16 @@
+# setup ssh for host completion
+if [[ ! -d ~/.ssh ]]; then
+ mkdir ~/.ssh/
+fi
+
+if [[ ! -e ~/.ssh/config ]]; then
+ touch ~/.ssh/config
+fi
+ 
+if [ "`grep "HashKnownHosts" ~/.ssh/config | wc -l`" = "       0" ]; then
+ echo "HashKnownHosts no" >> ~/.ssh/config
+fi
+
+if [[ ! -e ~/.ssh/known_hosts ]]; then
+ touch ~/.ssh/known_hosts
+fi

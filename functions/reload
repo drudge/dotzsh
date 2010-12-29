@@ -1,0 +1,11 @@
+function reload () {
+  if [[ "$#*" -eq 0 ]]; then
+    . ~/.zshrc
+  else
+    local fn
+    for fn in "$@"; do
+      unfunction $fn
+      autoload -U $fn
+    done
+  fi
+}

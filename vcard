@@ -1,0 +1,19 @@
+# Basics
+
+export FULL_NAME="Nicholas Penree"                    # Our name.
+export COMPANY="Conceited Software"                   # Duh
+export SHORTNAME="drudge"                             # Used to force a short name (for ssh say)
+export EMAIL="nicholas@conceitedsoftware.com"         # Our email address.
+export TZ="America/New_York"                          # Force our time zone this location.
+
+# Debian: these are used by debian packaging programs
+
+export DEBFULLNAME=$NAME
+export DEBEMAIL=$EMAIL
+
+# Git: these are used by git and will override anything in global config
+
+export GIT_COMMITTER_NAME=$FULL_NAME
+export GIT_COMMITTER_EMAIL=$EMAIL
+export GIT_AUTHOR_NAME=$FULL_NAME
+export GIT_AUTHOR_EMAIL=$EMAIL

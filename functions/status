@@ -1,0 +1,12 @@
+function status()
+{
+  local system="$(uname) $(uname -r)"
+  print ""
+  print "Date   : "$(date "+%Y-%m-%d %H:%M:%S")""
+  print "Shell  : Zsh $ZSH_VERSION (PID = $$, $SHLVL nests)"
+  print "Term   : $TTY ($TERM), $COLUMNS x $LINES cars"
+  print "Login  : $LOGNAME (UID = $EUID) on $HOST"
+  print "System : $system"
+  print "Uptime : $(uptime)"
+  print ""
+}

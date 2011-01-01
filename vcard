@@ -17,3 +17,7 @@ export GIT_COMMITTER_NAME=$FULL_NAME
 export GIT_COMMITTER_EMAIL=$EMAIL
 export GIT_AUTHOR_NAME=$FULL_NAME
 export GIT_AUTHOR_EMAIL=$EMAIL
+
+# Servers: This is a list of all servers i access on a regular basis
+
+MYSERVERS=("sd-1.conceited.net" "sd-3.conceited.net" "sd-4.conceited.net" "beyond.conceited.net" "vishnu-ssh.conceited.net")

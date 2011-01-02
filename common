@@ -2,7 +2,9 @@ export LC_ALL="en_US.UTF-8"             # Use British English...
 export LC_ALL="en_US.UTF-8"             # Use British English...
 export LANG="en_US.UTF-8"               # ...as default language.
 
-if [ -x `which mvim` ]; then
+MVIM=`which mvim`
+
+if [ -x "$MVIM" ]; then
     export EDITOR="mvim"                     # Long live vim (as our editor).
 else
     export EDITOR="vim"                     # Long live vim (as our editor).

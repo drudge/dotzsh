@@ -11,7 +11,7 @@ elif [ `uname -o` = "GNU/Linux" ]; then
   alias ls="ls --color=always"
 fi
 
-if [ -x `which mvim` ]; then
+if [ -x "$MVIM" ]; then
     alias vim="mvim"
 fi
 

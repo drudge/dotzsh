@@ -1,4 +1,4 @@
-precmd() {  
+precmd() {
     ## Git info in the prompt
     if [ -d "$PWD/.git" ]; then
 		export BRANCH=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
@@ -13,19 +13,33 @@ precmd() {
 	else
 		newPWD=${PWD:t}
 	fi
-	
+
 	ROOTSTRING=""
-	
+
 	if [ $USER = "root" ]; then
 		ROOTSTRING="%{$fg_bold[red]%}★ %{$reset_color%}"
 	fi
-	
+
 	title "" "%m: %55<...<%~"
     export PS1="$ROOTSTRING%{$fg[white]%}%m%{$reset_color%}:%{$fg[magenta]%} $newPWD%{$reset_color%}> "
-    
+
     if [ -n "$BRANCH" ]; then
-        export RPROMPT="%{$fg[white]%}(%{$reset_color%}%{$fg[green]%}$BRANCH%{$reset_color%}:%{$fg[yellow]%}$REV%{$reset_color%}%)%{$reset_color%}" 
+        export RPROMPT="%{$fg[white]%}(%{$reset_color%}%{$fg[green]%}$BRANCH%{$reset_color%}:%{$fg[yellow]%}$REV%{$reset_color%}%)%{$reset_color%}"
     else
         export RPROMPT=""
     fi
+
+	# Sets the tab and window titles before the prompt is displayed.
+	if [[ "$TERM_PROGRAM" != "Apple_Terminal" ]] && check-bool "$AUTO_TITLE"; then
+	set-window-title "${(%):-%~}"
+	for kind in tab screen; do
+		# Left-truncate the current working directory to 15 characters.
+		set-${kind}-title "${(%):-%15<...<%~%<<}"
+	done
+	else
+	# Set Apple Terminal current working directory.
+	printf '\e]7;%s\a' "file://$HOST${PWD// /%20}"
+	fi
 }
+
+

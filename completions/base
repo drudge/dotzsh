@@ -117,3 +117,4 @@ if [[ -f ~/.ssh/known_hosts ]]; then
 fi
 
 fpath=(~/.zsh/completions $fpath)
+source ~/.zsh/completions/_npm

@@ -32,6 +32,6 @@ done
 source $HOME/.zsh/common
 source $HOME/.zsh/vcard
 source $HOME/.zsh/aliases
-source $HOME/.zsh/completions
+source $HOME/.zsh/completions/base
 source $HOME/.zsh/setup
 source $HOME/.zsh/binds

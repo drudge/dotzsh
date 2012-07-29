@@ -115,3 +115,5 @@ if [[ -f ~/.ssh/known_hosts ]]; then
    _myhosts=($_etchosts $_sshhosts)
    zstyle ':completion:*' hosts $_myhosts
 fi
+
+fpath=(~/.zsh/completions $fpath)

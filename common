@@ -5,9 +5,9 @@ export LANG="en_US.UTF-8"
 CHOC=`which choc`
 
 if [ -x "$CHOC" ]; then
-    export EDITOR="choc -w"
+  export EDITOR="choc -w"
 else
-    export EDITOR="vim"
+  export EDITOR="vim"
 fi
 
 export PAGE="less"
@@ -29,5 +29,3 @@ limit -s
 export COLOR_PROMPT=yes
 export force_colored_prompt=yes
 export LSCOLORS=dxfxcxdxbxegedabagacad
-
-

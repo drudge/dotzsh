@@ -1,16 +1,16 @@
 function gitize {
-    PROJECT_NAME=$(basename "$PWD")
-
-    # make git repo
-    git init
-
-    if [ ! -e 'README.markdown' ]; then 
-        touch README.markdown
-    fi
-
-    git add .
-    git commit -m 'First commit'
-
-    echo " "
-    echo "Gitize completed."
+  PROJECT_NAME=$(basename "$PWD")
+  
+  # make git repo
+  git init
+  
+  if [ ! -e 'README.markdown' ]; then 
+    touch README.markdown
+  fi
+  
+  git add .
+  git commit -m 'First commit'
+  
+  echo " "
+  echo "Gitize completed."
 }

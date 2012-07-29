@@ -1,10 +1,10 @@
 setopt CORRECT			# command CORRECTION
 setopt MENUCOMPLETE
 setopt ALL_EXPORT
-setopt   notify globdots correct pushdtohome cdablevars autolist
-setopt   correctall autocd recexact longlistjobs
-setopt   nobeep nohup completeinword autoresume pushdsilent 
-setopt   autopushd pushdminus extendedglob rcquotes mailwarning
+setopt notify globdots correct pushdtohome cdablevars autolist
+setopt correctall autocd recexact longlistjobs
+setopt nobeep nohup completeinword autoresume pushdsilent 
+setopt autopushd pushdminus extendedglob rcquotes mailwarning
 setopt APPEND_HISTORY INC_APPEND_HISTORY SHARE_HISTORY
 unsetopt promptcr bgnice autoparamslash
 
@@ -19,13 +19,12 @@ zmodload -a zsh/zpty zpty
 zmodload -a zsh/zprof zprof
 
 if [ -z "$VIMRUNTIME" ]; then
-    zmodload -ap zsh/mapfile mapfile
+  zmodload -ap zsh/mapfile mapfile
 fi
 
 # load my defined functions
-for file in $HOME/.zsh/functions/*
-do
-    source $file
+for file in $HOME/.zsh/functions/*; do
+  source $file
 done
 
 # load up crap

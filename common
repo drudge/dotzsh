@@ -1,14 +1,15 @@
-export LC_ALL="en_US.UTF-8"             # Use British English...
-export LC_ALL="en_US.UTF-8"             # Use British English...
-export LANG="en_US.UTF-8"               # ...as default language.
+export LC_ALL="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
 
-MVIM=`which mvim`
+CHOC=`which choc`
 
-if [ -x "$MVIM" ]; then
-    export EDITOR="mvim"                     # Long live vim (as our editor).
+if [ -x "$CHOC" ]; then
+    export EDITOR="choc -w"
 else
-    export EDITOR="vim"                     # Long live vim (as our editor).
+    export EDITOR="vim"
 fi
+
 export PAGE="less"
 
 export PATH="${PATH}:/opt/local/bin"

@@ -2,17 +2,13 @@ alias up="sudo zsh"
 alias untar="tar xzfvv"           # for tarballs
 alias unbz2="tar xvvfj"           # for .bz2 archives
 alias twecroute="sudo route add 10.201.0.0/8 -interface ppp0"
-alias chat-ssh="ssh ircd@chat.osx86.hu"
+alias deploy-eg="ssh evergig.com /home/drudge/deploy.sh"
 alias grep="grep --colour=always"
 
 if [ `uname` = "Darwin" ]; then
   alias ls="ls -G"
 elif [ `uname -o` = "GNU/Linux" ]; then
   alias ls="ls --color=always"
-fi
-
-if [ -x "$MVIM" ]; then
-    alias vim="mvim"
 fi
 
 for i in ${MYSERVERS[@]}

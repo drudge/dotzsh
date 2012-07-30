@@ -16,4 +16,4 @@ The ZSH [reference card](http://www.bash2zsh.com/zsh_refcard/refcard.pdf) is a p
 
 ## Feedback
 
-Suggestions/improvements [welcome](https://github.com/drudge/dotzsh/issues)
+Suggestions/improvements are [welcome](https://github.com/drudge/dotzsh/issues)

@@ -1,0 +1,8 @@
+source $HOME/.zsh/functions/src
+
+function update-zsh() {
+  cd ~/.zsh
+  git pull origin master
+  src
+  reload
+}

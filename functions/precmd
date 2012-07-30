@@ -1,3 +1,5 @@
+source $HOME/.zsh/functions/is-true
+
 precmd() {
   ## Git info in the prompt
   if [ -d "$PWD/.git" ]; then
@@ -30,7 +32,7 @@ precmd() {
   fi
 
   # Sets the tab and window titles before the prompt is displayed.
-  if [[ "$TERM_PROGRAM" != "Apple_Terminal" ]] && check-bool "$AUTO_TITLE"; then
+  if [[ "$TERM_PROGRAM" != "Apple_Terminal" ]] && is-true "$AUTO_TITLE"; then
     set-window-title "${(%):-%~}"
     for kind in tab screen; do
       # Left-truncate the current working directory to 15 characters.

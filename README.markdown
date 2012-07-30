@@ -12,7 +12,7 @@ cd ~ && git clone https://github.com/drudge/dotzsh.git ~/.zsh && ln -s ~/.zsh/co
 
 ## Useful
 
-The [refcard](http://www.bash2zsh.com/zsh_refcard/refcard.pdf) is pretty tasty for tips.
+The ZSH [reference card](http://www.bash2zsh.com/zsh_refcard/refcard.pdf) is a pretty good start for tips.
 
 ## Feedback
 

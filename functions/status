@@ -1,12 +1,19 @@
 function status()
 {
-  local system="$(uname) $(uname -r)"
+  local uname="$(uname)"
+  local system="$uname $(uname -r)"
+  local sw_vers="$(which sw_vers)"
+  
+  if [[ $uname = "Darwin" && -x "$sw_vers" ]]; then
+    system="$(sw_vers -productName) $(sw_vers -productVersion)/$(sw_vers -buildVersion)"
+  fi
+  
   print ""
-  print "Date   : "$(date "+%Y-%m-%d %H:%M:%S")""
-  print "Shell  : Zsh $ZSH_VERSION (PID = $$, $SHLVL nests)"
-  print "Term   : $TTY ($TERM), $COLUMNS x $LINES cars"
-  print "Login  : $LOGNAME (UID = $EUID) on $HOST"
-  print "System : $system"
-  print "Uptime : $(uptime)"
+  print "      $fg[magenta]date:$reset_color $fg[white]"$(date "+%Y-%m-%d %H:%M:%S")"$reset_color"
+  print "     $fg[magenta]shell:$reset_color $fg[white]Zsh $ZSH_VERSION (PID = $$, $SHLVL nests)$reset_color"
+  print "      $fg[magenta]term:$reset_color $fg[white]$TTY ($TERM), $COLUMNS x $LINES cars$reset_color"
+  print "     $fg[magenta]login:$reset_color $fg[white]$LOGNAME (UID = $EUID) on $HOST$reset_color"
+  print "    $fg[magenta]system:$reset_color $fg[white]$system$reset_color"
+  print "    $fg[magenta]uptime:$reset_color $fg[white]$(uptime)$reset_color"
   print ""
 }

@@ -3,9 +3,14 @@ function status()
   local uname="$(uname)"
   local system="$uname $(uname -r)"
   local sw_vers="$(which sw_vers)"
+  local lsb_release="$(which lsb_release)"
   
   if [[ $uname = "Darwin" && -x "$sw_vers" ]]; then
     system="$(sw_vers -productName) $(sw_vers -productVersion)/$(sw_vers -buildVersion)"
+  else 
+    if [[ $uname = "Linux" && -x "$lsb_release" ]]; then
+      system="$(lsb_release -i -s) $(lsb_release -r -s) ($(lsb_release -c -s))"
+    fi
   fi
   
   print ""

@@ -5,9 +5,21 @@ precmd() {
   if [ -d "$PWD/.git" ]; then
     export BRANCH=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
     export REV=$(git describe --tags --always $1 2>/dev/null || git rev-parse --short $1 2>/dev/null)
+    export CHANGES=" "
+    
+    local st="$(git status 2>/dev/null)"
+    
+    if [[ ! $st =~ 'nothing to commit' ]]; then
+        if [[ ! $st =~ 'no changes added to commit' ]]; then
+          CHANGES="⚑ "
+        else
+          CHANGES="⚐ "
+        fi
+    fi
   else
     export BRANCH=""
     export REV=""
+    export CHANGES="  "
   fi
 
   if [ $HOME = $PWD ]; then
@@ -26,7 +38,7 @@ precmd() {
   export PS1="$ROOTSTRING%{$fg[white]%}%m%{$reset_color%}:%{$fg[magenta]%} $newPWD%{$reset_color%}> "
 
   if [ -n "$BRANCH" ]; then
-    export RPROMPT="%{$fg[white]%}(%{$reset_color%}%{$fg[green]%}$BRANCH%{$reset_color%}:%{$fg[yellow]%}$REV%{$reset_color%}%)%{$reset_color%}"
+    export RPROMPT="%{$fg[white]%}$CHANGES%{$reset_color%}%{$fg[white]%}(%{$reset_color%}%{$fg[green]%}$BRANCH%{$reset_color%}:%{$fg[yellow]%}$REV%{$reset_color%}%)%{$reset_color%}"
   else
     export RPROMPT=""
   fi

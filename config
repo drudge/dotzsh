@@ -5,7 +5,7 @@ setopt notify globdots correct pushdtohome cdablevars autolist
 setopt correctall autocd recexact longlistjobs transientrprompt
 setopt nobeep nohup completeinword autoresume pushdsilent 
 setopt autopushd pushdminus extendedglob rcquotes mailwarning
-setopt APPEND_HISTORY INC_APPEND_HISTORY SHARE_HISTORY printexitvalue
+setopt APPEND_HISTORY INC_APPEND_HISTORY SHARE_HISTORY
 unsetopt promptcr bgnice autoparamslash 
 
 #zmodload zsh/complist

@@ -1,0 +1,11 @@
+function get_nave() {
+  if [ ! -x `which curl` ]; then
+    echo "curl is required. Try `apt-get install curl` or similar."
+    exit 1
+  fi
+  
+  cd /tmp
+  curl -O https://raw.github.com/isaacs/nave/master/nave.sh
+  sudo mv /tmp/nave.sh /usr/local/bin/nave
+  sudo chmod +x /usr/local/bin/nave
+}

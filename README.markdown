@@ -1,3 +1,5 @@
+# This project has been merged into my [dotfiles](http://github.com/drudge/dotfiles) repository and is no longer being maintained.
+
 # drudge’s ZSH Config
 
 ## Installation
